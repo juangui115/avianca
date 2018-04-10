@@ -1,0 +1,122 @@
+CREATE TABLE EMPLEADOS  
+   (ID Number(*,0) PRIMARY KEY,  
+    Nombre Varchar2(255 BYTE),  
+	Apellido Varchar2(255 BYTE),
+	Fecha_Nacimiento Date,
+	Direccion Varchar2(255 BYTE),
+	Sexo Varchar2(255 BYTE),
+	Correo Varchar2(255 BYTE),
+	Celular Varchar2(255 BYTE),
+	Horas_Descanso time,
+	Fecha_Ingreso Date,
+	Fecha_Retiro Date,
+	Ubicacion Varchar2(255 BYTE), 
+	Fecha_Ultimovuelo Date,
+	Fecha_Ultimoentrenamiento Date,
+    Estado_Empleado Varchar2(255 BYTE),  	/* En oracle se debe realizar un check */
+	Ubicacion_Actual Varchar2(255 BYTE),
+	Tipo_Empleados Varchar2(255 BYTE))
+GO  
+
+CREATE TABLE PASAJEROS  
+   (ID Number(*,0) PRIMARY KEY,
+    Nombre Varchar2(255 BYTE),  
+	Apellido Varchar2(255 BYTE),	
+	Tipo_Documento  Varchar2(255 BYTE),
+	Documento Varchar2(255 BYTE),
+	Contacto_Emergencia Varchar2(255 BYTE),
+	Pais_Contacto_Emergencia Varchar2(255 BYTE),
+	Ciudad_Contacto_Emergencia Varchar2(255 BYTE),
+	Correo_Contacto_Emergencia Varchar2(255 BYTE),
+	Telefono_Contacto_Emergencia Varchar2(255 BYTE),
+	Id_check_in Number(*,0))
+GO
+
+CREATE TABLE RUTAS
+   (ID Number(*,0) PRIMARY KEY,
+	Frecuencia_Semanal Number(*,0),
+    Distancia Binary_float,  
+	Cantidad_Prom_Horas Binary_float,
+	Aeropuerto_Origen Number(*,0), /* revizar normalizacion */
+	Aeropuerto_Destino Number(*,0), /* revizar normalizacion */
+    Id_Aeropuerto Number(*,0))
+GO  
+
+CREATE TABLE ITINERARIOS   /*Despues del vuelo */
+   (ID Number(*,0) PRIMARY KEY,
+	Fecha_Salida_Real TimeStamp,	
+	Fecha_Llegada_Real TimeStamp,
+	Duracion_Real Date,
+	Cantidad_Pasajeros Number(*,0),
+	Id_Check_in Number(*,0),
+    Id_Vuelo Number(*,0))
+GO
+
+CREATE TABLE CHECK_INS  /*antes del vuelo */
+	(ID Number(*,0) PRIMARY KEY,
+	 Fecha_Salida_Programada TimeStamp,
+	 Fecha_Llegada_Programada TimeStamp,
+     Id_Ruta Number(*,0),
+	 Id_Avion Number(*,0))
+GO
+
+CREATE TABLE VUELOS
+	(ID Number(*,0) PRIMARY KEY,
+	 Nombre Varchar2(255 BYTE),
+	 Id_Ruta Number(*,0))
+GO
+
+CREATE TABLE ITINERARIO_TRIPULANTES
+   (ID Number(*,0) PRIMARY KEY,
+	Id_Check_in Number(*,0),
+	Id_Empleado Number(*,0))
+GO 
+
+CREATE TABLE AEROPUERTOS  
+   (ID Number(*,0) PRIMARY KEY,
+	Nombre_Aeropuerto Varchar2(255 BYTE),
+	Pais Varchar2(255 BYTE),
+    Ciudad Varchar2(255 BYTE),  
+	Abreviatura Varchar2(255 BYTE),
+    Cooredenadas Varchar (255 byte))
+GO  
+
+CREATE TABLE LOG_VUELOS  
+   (ID Number(*,0) PRIMARY KEY,
+    Horareal TimeStamp,
+	Fecha_UTC  Date,
+	Latitud Binary_float,
+	Longitud Binary_float,
+	Altitud Binary_float,
+	Velocidad Binary_float,
+	Direccion Binary_float)
+GO    
+
+
+CREATE TABLE AVIONES
+   (ID Number(*,0) PRIMARY KEY,
+    Registro_Vuelo Varchar2(255 BYTE),  /*numero de vuelo*/
+    Numero_Serial Varchar2(255 BYTE),
+    Edad Varchar2(255 BYTE),  
+    Id_Tipo_Avion Number(*,0))
+GO   
+
+CREATE TABLE TIPOS_AVIONES
+   (ID Number(*,0) PRIMARY KEY,
+	Descripcion Varchar2(255 BYTE),
+	Modelo_General Varchar2(255 BYTE),
+	Modelo_Especifico Varchar2(255 BYTE),
+	Capacidad Number(*,0))
+GO   
+
+
+CREATE TABLE PILOTOS
+   (ID Number(*,0) PRIMARY KEY,
+	Tipo_Licencia Varchar2(255 BYTE), /* En oracle se debe realizar un check */
+	Cargo Varchar2(255 BYTE),         /* En oracle se debe realizar un check */
+	Nivel_Ingles Varchar2(255 BYTE), /* En oracle se debe realizar un check */
+	Id_Empleado Number(*,0),
+	Cantidad_Horas_Vuelo Number(*,0),
+    Id_Check_in Number(*,0))
+	
+GO  
