@@ -17,7 +17,6 @@ CREATE TABLE EMPLEADOS
 	Tipo_Empleados Varchar2(255 BYTE)
     );
     
-    drop table EMPLEADOS
     
 CREATE SEQUENCE Id_Empleado 
 increment
